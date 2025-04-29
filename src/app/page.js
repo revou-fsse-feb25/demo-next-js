@@ -1,10 +1,28 @@
 "use client";
 
-import { useState } from "react";
-// Remove the direct import since we'll use a different approach
+import { useState, useEffect } from "react";
+import productImage from "../assets/image-product-desktop.jpg"; 
+import productImageMobile from "../assets/image-product-desktop.jpg";
 
 export default function Home() {
   const [isAddedToCart, setIsAddedToCart] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
+
+  // Detect if we're on mobile viewport
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    
+    // Set initial value
+    handleResize();
+    
+    // Add event listener
+    window.addEventListener('resize', handleResize);
+    
+    // Clean up
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   const handleAddToCart = () => {
     setIsAddedToCart(true);
@@ -18,9 +36,9 @@ export default function Home() {
       <div className="bg-white rounded-xl overflow-hidden shadow-md flex flex-col md:flex-row max-w-4xl w-full mx-auto">
         {/* Product Image */}
         <div className="relative w-full md:w-1/2 h-[300px] md:h-[500px]">
-          {/* Using a public URL path - make sure to copy image to public folder */}
+          {/* Using the appropriate image based on screen size */}
           <img
-            src="../assets/image-product-desktop.jpg"
+            src={isMobile ? productImageMobile.src : productImage.src}
             alt="Chanel Gabrielle Perfume"
             className="w-full h-full object-cover"
           />
