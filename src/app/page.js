@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import productImage from "../assets/image-product-desktop.jpg"; 
-import productImageMobile from "../assets/image-product-desktop.jpg";
+import productImageMobile from "../assets/image-product-mobile.jpg";
 
 export default function Home() {
   const [isAddedToCart, setIsAddedToCart] = useState(false);
