@@ -1,20 +1,29 @@
 'use client'
 
 // TODO: Import useState from React
-// TODO: Import the components you'll create
+import Greetings from "../components/Greetings";
+import Counter from '../components/Counter'
+import Card from "../components/Card";
+import { useState } from "react";
 
 export default function Home() {
-  // TODO: Create a state variable for the counter
-  
-  // Regular variable - doesn't persist between renders
+  const [books, setBooks] = useState({
+    title: 'harry potter',
+    author: "jk rowling"
+  })
   let regularVariable = 0;
   
   const incrementVariable = () => {
-    // TODO: Implement incrementing the regular variable
+    regularVariable = regularVariable + 1
+    console.log('tes', regularVariable)
   }
+  
   
   return (
     <main className="flex min-h-screen flex-col items-center justify-center p-8 bg-slate-900 text-white">
+      <Greetings />
+      <Greetings />
+      
       <h1 className="text-4xl font-bold mb-8 text-center text-blue-400">Next.js App Router Demo</h1>
       
       {/* TODO: Use React Fragment syntax here */}
@@ -23,8 +32,9 @@ export default function Home() {
           
           <div className="mb-6">
             <h3 className="text-xl mb-2 text-blue-400">State vs Variable</h3>
-            {/* TODO: Display the state value */}
-            {/* TODO: Display the regular variable */}
+            <Counter/>
+            <p>You have been clicked {regularVariable} times</p>
+            <button onClick={incrementVariable}>+</button>
             
             <div className="flex space-x-4">
               {/* TODO: Create buttons to update state and variable */}
@@ -38,7 +48,13 @@ export default function Home() {
         {/* TODO: Add the Counter component with props */}
         
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-8">
-          {/* TODO: Add Card components */}
+          <Card title="shanghai 123" content="lorem ipsum"/>
+          <Card title="berlin" content="lorem ipsum"/>
+          <Card title="paris" content="lorem ipsum"/>
+          <Card title="madrid" content="lorem ipsum"/>
+
+          <Card classTailwind="text-sm"/>
+
         </div>
       </section>
     </main>
