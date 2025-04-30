@@ -1,289 +1,187 @@
-"use client";
-
+"use client"
 // pages/index.js
+import { useState } from 'react';
 import Head from 'next/head';
-import Link from 'next/link';
 
 export default function Home() {
+  // Pre-implemented state for popup modal (special feature)
+  const [showPopup, setShowPopup] = useState(false);
+  
+  // Pre-implemented popup handlers
+  const handleShowPopup = () => {
+    setShowPopup(true);
+  };
+  
+  const handleClosePopup = () => {
+    setShowPopup(false);
+  };
+  
+  // TODO: Create state variables for the counter, hover state, and keyboard events
+  // Hint: Use useState to track various interaction states
+
+  // TODO: Create an event handler for button clicks to increment counter
+  // Hint: This function should increment the counter
+
+  // TODO: Create mouse event handlers (hover)
+  // Hint: These functions should update hover state
+
+  // TODO: Create keyboard event handler
+  // Hint: This function should detect specific key presses
+
+  // TODO: Create an event handler for form input changes
+  // Hint: This function should update the form data state
+
+  // TODO: Create a form submission handler
+  // Hint: This function should prevent default form behavior and process the submission
+
   return (
-    <div className="bg-gray-900 text-gray-100">
-      {/* Head component for metadata */}
+    <div className="min-h-screen bg-gray-50 py-10">
       <Head>
-        <title>My Next.js Homepage</title>
-        <meta name="description" content="A simple Next.js homepage with Tailwind CSS" />
+        <title>Next.js Events Demo</title>
+        <meta name="description" content="Learning about events in Next.js" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      {/* Navigation */}
-      <nav className="bg-gray-800 shadow-md fixed w-full z-10">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between h-16">
-            <div className="flex items-center">
-              <span className="text-xl font-bold text-gray-100">MyWebsite</span>
-            </div>
-            <div className="flex items-center">
-              <div className="hidden md:block">
-                <div className="flex items-baseline space-x-4">
-                  <Link href="#hero" className="px-3 py-2 text-gray-100 font-medium rounded-md bg-gray-700">
-                    Home
-                  </Link>
-                  <Link href="#features" className="px-3 py-2 text-gray-300 font-medium rounded-md hover:bg-gray-700 hover:text-white">
-                    Features
-                  </Link>
-                  <Link href="#about" className="px-3 py-2 text-gray-300 font-medium rounded-md hover:bg-gray-700 hover:text-white">
-                    About
-                  </Link>
-                  <Link href="#contact" className="px-3 py-2 text-gray-300 font-medium rounded-md hover:bg-gray-700 hover:text-white">
-                    Contact
-                  </Link>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </nav>
+      <main className="max-w-4xl mx-auto px-4">
+        <h1 className="text-4xl font-bold text-center text-gray-800 mb-8">
+          Next.js Events Demo
+        </h1>
 
-      <main>
-        {/* Hero Section - Full viewport height */}
-        <section id="hero" className="h-screen bg-gray-800 flex items-center justify-center pt-16">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="text-center">
-              <h1 className="text-4xl tracking-tight font-extrabold text-white sm:text-5xl md:text-6xl">
-                <span className="block">Welcome to</span>
-                <span className="block text-indigo-400">My Next.js Website</span>
-              </h1>
-              <p className="mt-3 max-w-md mx-auto text-base text-gray-300 sm:text-lg md:mt-5 md:text-xl md:max-w-3xl">
-                A clean, simple homepage built with Next.js and styled with Tailwind CSS.
-              </p>
-              <div className="mt-5 max-w-md mx-auto sm:flex sm:justify-center md:mt-8">
-                <div className="rounded-md shadow">
-                  <a
-                    href="#features"
-                    className="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 md:py-4 md:text-lg md:px-10"
-                  >
-                    Get Started
-                  </a>
-                </div>
-                <div className="mt-3 rounded-md shadow sm:mt-0 sm:ml-3">
-                  <a
-                    href="#"
-                    className="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-indigo-400 bg-gray-700 hover:bg-gray-600 md:py-4 md:text-lg md:px-10"
-                  >
-                    Learn More
-                  </a>
-                </div>
-              </div>
+        {/* Click Events Section */}
+        <section className="bg-white p-6 rounded-lg shadow-md mb-6">
+          <h2 className="text-2xl font-semibold text-gray-700 mb-4">1. Click Events</h2>
+          <div className="flex flex-col gap-4">
+            <div>
+              <p className="mb-2">Current count: {/* TODO: Display counter value here */}</p>
+              <button 
+                className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded transition-colors"
+                // TODO: Add onClick event handler to increment counter
+              >
+                Increment Counter
+              </button>
+            </div>
+            
+            <div>
+              <button 
+                className="bg-purple-500 hover:bg-purple-600 text-white px-4 py-2 rounded transition-colors"
+                onClick={handleShowPopup}
+              >
+                Show Popup
+              </button>
             </div>
           </div>
         </section>
 
-        {/* Feature Section - Full viewport height */}
-        <section id="features" className="h-screen bg-gray-900 flex items-center justify-center">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="lg:text-center">
-              <h2 className="text-base text-indigo-400 font-semibold tracking-wide uppercase">FEATURES</h2>
-              <p className="mt-2 text-3xl leading-8 font-extrabold tracking-tight text-white sm:text-4xl">
-                Everything you need to get started
-              </p>
-              <p className="mt-4 max-w-2xl text-xl text-gray-300 lg:mx-auto">
-                Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ipsa libero labore natus atque.
-              </p>
-            </div>
-
-            <div className="mt-16">
-              <div className="space-y-10 md:space-y-0 md:grid md:grid-cols-3 md:gap-x-8 md:gap-y-10">
-                {/* Feature 1 */}
-                <div className="relative">
-                  <div className="absolute flex items-center justify-center h-12 w-12 rounded-md bg-indigo-500 text-white">
-                    <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
-                    </svg>
-                  </div>
-                  <div className="ml-16">
-                    <h3 className="text-lg leading-6 font-medium text-white">Fast Performance</h3>
-                    <p className="mt-2 text-base text-gray-300">
-                      Optimized for speed and efficiency, providing a seamless user experience.
-                    </p>
-                  </div>
-                </div>
-
-                {/* Feature 2 */}
-                <div className="relative">
-                  <div className="absolute flex items-center justify-center h-12 w-12 rounded-md bg-indigo-500 text-white">
-                    <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 15a4 4 0 004 4h9a5 5 0 10-.1-9.999 5.002 5.002 0 10-9.78 2.096A4.001 4.001 0 003 15z" />
-                    </svg>
-                  </div>
-                  <div className="ml-16">
-                    <h3 className="text-lg leading-6 font-medium text-white">Modern Design</h3>
-                    <p className="mt-2 text-base text-gray-300">
-                      Clean, responsive layouts that look great on any device or screen size.
-                    </p>
-                  </div>
-                </div>
-
-                {/* Feature 3 */}
-                <div className="relative">
-                  <div className="absolute flex items-center justify-center h-12 w-12 rounded-md bg-indigo-500 text-white">
-                    <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
-                    </svg>
-                  </div>
-                  <div className="ml-16">
-                    <h3 className="text-lg leading-6 font-medium text-white">Easy Integration</h3>
-                    <p className="mt-2 text-base text-gray-300">
-                      Seamlessly connect with APIs and third-party services for extended functionality.
-                    </p>
-                  </div>
-                </div>
+        {/* Popup Component - Pre-implemented as requested */}
+        {showPopup && (
+          <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-50">
+            <div className="bg-white rounded-lg shadow-xl p-6 max-w-md w-full mx-4 border border-gray-200">
+              <div className="flex justify-between items-center mb-4">
+                <h3 className="text-xl font-semibold text-gray-800">Popup Message</h3>
+                <button 
+                  className="text-gray-400 hover:text-gray-600"
+                  onClick={handleClosePopup}
+                >
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                  </svg>
+                </button>
               </div>
+              <p className="text-gray-600 mb-4">This is a popup triggered by a button click event!</p>
+              <button 
+                className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded transition-colors w-full"
+                onClick={handleClosePopup}
+              >
+                Close
+              </button>
             </div>
+          </div>
+        )}
+
+        {/* Mouse Events Section */}
+        <section className="bg-white p-6 rounded-lg shadow-md mb-6">
+          <h2 className="text-2xl font-semibold text-gray-700 mb-4">2. Mouse Events</h2>
+          <div 
+            className="h-32 flex items-center justify-center border-2 border-dashed border-gray-300 rounded-lg"
+            // TODO: Add onMouseEnter and onMouseLeave handlers
+          >
+            {/* TODO: Show different text based on hover state */}
+            <p className="text-gray-600">Hover over this area</p>
           </div>
         </section>
 
-        {/* About Section - Full viewport height */}
-        <section id="about" className="h-screen bg-gray-800 flex items-center justify-center">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="lg:text-center">
-              <h2 className="text-base text-indigo-400 font-semibold tracking-wide uppercase">ABOUT US</h2>
-              <p className="mt-2 text-3xl leading-8 font-extrabold tracking-tight text-white sm:text-4xl">
-                Our story and mission
-              </p>
-              <p className="mt-4 max-w-2xl text-xl text-gray-300 lg:mx-auto">
-                We're dedicated to creating innovative solutions that help our customers succeed in today's digital landscape.
-              </p>
-              <div className="mt-10 flex justify-center">
-                <div className="prose prose-lg text-gray-300 max-w-3xl">
-                  <p>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus gravida ipsum at cursus aliquet. 
-                    Curabitur in dolor eget ligula pulvinar fermentum. Nullam mattis tincidunt metus, sed fringilla turpis
-                    pellentesque vitae. Sed auctor massa vel neque interdum, non elementum dui volutpat.
-                  </p>
-                  <p>
-                    Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; 
-                    Donec sodales sapien ut metus convallis, eu pulvinar neque tincidunt. Nulla facilisi. 
-                    Proin tempor interdum augue, nec iaculis enim interdum eget.
-                  </p>
-                </div>
-              </div>
-            </div>
+        {/* Keyboard Events Section */}
+        <section className="bg-white p-6 rounded-lg shadow-md mb-6">
+          <h2 className="text-2xl font-semibold text-gray-700 mb-4">3. Keyboard Events</h2>
+          <div className="mb-4">
+            <p className="mb-2">Press the spacebar to trigger an event</p>
+            <input 
+              type="text"
+              className="w-full p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+              placeholder="Click here and press a key"
+              // TODO: Add onKeyDown event handler
+            />
+            {/* TODO: Display message when spacebar is pressed */}
           </div>
         </section>
 
-        {/* Contact Section - Full viewport height */}
-        <section id="contact" className="h-screen bg-gray-900 flex items-center justify-center">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="lg:text-center">
-              <h2 className="text-base text-indigo-400 font-semibold tracking-wide uppercase">CONTACT US</h2>
-              <p className="mt-2 text-3xl leading-8 font-extrabold tracking-tight text-white sm:text-4xl">
-                Get in touch with our team
-              </p>
-              <p className="mt-4 max-w-2xl text-xl text-gray-300 lg:mx-auto">
-                We'd love to hear from you. Send us a message and we'll respond as soon as possible.
-              </p>
-              <div className="mt-10 flex justify-center">
-                <div className="bg-gray-800 py-8 px-6 shadow rounded-lg sm:px-10 w-full max-w-md">
-                  <form className="mb-0 space-y-6">
-                    <div>
-                      <label htmlFor="name" className="block text-sm font-medium text-gray-300 text-left">
-                        Name
-                      </label>
-                      <div className="mt-1">
-                        <input
-                          id="name"
-                          name="name"
-                          type="text"
-                          autoComplete="name"
-                          required
-                          className="w-full border border-gray-700 bg-gray-700 px-3 py-2 rounded-lg shadow-sm focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 text-white"
-                        />
-                      </div>
-                    </div>
-                    <div>
-                      <label htmlFor="email" className="block text-sm font-medium text-gray-300 text-left">
-                        Email
-                      </label>
-                      <div className="mt-1">
-                        <input
-                          id="email"
-                          name="email"
-                          type="email"
-                          autoComplete="email"
-                          required
-                          className="w-full border border-gray-700 bg-gray-700 px-3 py-2 rounded-lg shadow-sm focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 text-white"
-                        />
-                      </div>
-                    </div>
-                    <div>
-                      <label htmlFor="message" className="block text-sm font-medium text-gray-300 text-left">
-                        Message
-                      </label>
-                      <div className="mt-1">
-                        <textarea
-                          id="message"
-                          name="message"
-                          // rows="4"
-                          required
-                          className="w-full border border-gray-700 bg-gray-700 px-3 py-2 rounded-lg shadow-sm focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 text-white"
-                        ></textarea>
-                      </div>
-                    </div>
-                    <div>
-                      <button
-                        type="submit"
-                        className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-                      >
-                        Send Message
-                      </button>
-                    </div>
-                  </form>
-                </div>
-              </div>
+        {/* Form Handling Section */}
+        <section className="bg-white p-6 rounded-lg shadow-md mb-6">
+          <h2 className="text-2xl font-semibold text-gray-700 mb-4">4. Form Handling</h2>
+          <form 
+            className="space-y-4"
+            // TODO: Add onSubmit event handler
+          >
+            <div>
+              <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-1">
+                Name:
+              </label>
+              <input
+                type="text"
+                id="name"
+                name="name"
+                className="w-full p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+                // TODO: Add value and onChange event handler
+              />
             </div>
-          </div>
+            
+            <div>
+              <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">
+                Email:
+              </label>
+              <input
+                type="email"
+                id="email"
+                name="email"
+                className="w-full p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+                // TODO: Add value and onChange event handler
+              />
+            </div>
+            
+            <div>
+              <label htmlFor="message" className="block text-sm font-medium text-gray-700 mb-1">
+                Message:
+              </label>
+              <textarea
+                id="message"
+                name="message"
+                rows="4"
+                className="w-full p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+                // TODO: Add value and onChange event handler
+              ></textarea>
+            </div>
+            
+            <button 
+              type="submit" 
+              className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded transition-colors"
+            >
+              Submit Form
+            </button>
+          </form>
+          
+          {/* TODO: Display submitted form data when available */}
         </section>
       </main>
-
-      {/* Footer */}
-      <footer className="bg-gray-800 text-gray-300">
-        <div className="max-w-7xl mx-auto py-12 px-4 overflow-hidden sm:px-6 lg:px-8">
-          <nav className="flex flex-wrap justify-center">
-            <div className="px-5 py-2">
-              <Link href="#about" className="text-base text-gray-300 hover:text-white">
-                About
-              </Link>
-            </div>
-            <div className="px-5 py-2">
-              <Link href="#" className="text-base text-gray-300 hover:text-white">
-                Blog
-              </Link>
-            </div>
-            <div className="px-5 py-2">
-              <Link href="#" className="text-base text-gray-300 hover:text-white">
-                Jobs
-              </Link>
-            </div>
-            <div className="px-5 py-2">
-              <Link href="#" className="text-base text-gray-300 hover:text-white">
-                Press
-              </Link>
-            </div>
-            <div className="px-5 py-2">
-              <Link href="#" className="text-base text-gray-300 hover:text-white">
-                Privacy
-              </Link>
-            </div>
-            <div className="px-5 py-2">
-              <Link href="#" className="text-base text-gray-300 hover:text-white">
-                Terms
-              </Link>
-            </div>
-          </nav>
-          <p className="mt-8 text-center text-base text-gray-400">
-            &copy; 2025 My Company, Inc. All rights reserved.
-          </p>
-        </div>
-      </footer>
     </div>
   );
 }
