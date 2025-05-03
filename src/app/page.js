@@ -29,28 +29,28 @@ export default function Home() {
   const [isSubmitting, setIsSubmitting] = useState(false)
 
   // DEMO STEP 1: Fetch cats from the API
-  useEffect(() => {
-    const fetchCats = async () => {
+  // useEffect(() => {
+  //   const fetchCats = async () => {
       
-      try {
-        const response = await fetch('https://64ca45bd700d50e3c7049e2f.mockapi.io/cat')
-        if (!response.ok) {
-          throw new Error('Failed to fetch cats')
-        }
-        const data = await response.json()
-        setCats(data)
-      } catch (error) {
-        console.error('Error fetching cats:', error)
-      } finally {
-        setLoading(false)
-      }
+  //     try {
+  //       const response = await fetch('https://64ca45bd700d50e3c7049e2f.mockapi.io/cat')
+  //       if (!response.ok) {
+  //         throw new Error('Failed to fetch cats')
+  //       }
+  //       const data = await response.json()
+  //       setCats(data)
+  //     } catch (error) {
+  //       console.error('Error fetching cats:', error)
+  //     } finally {
+  //       setLoading(false)
+  //     }
       
       
-      setLoading(false)
-    }
+  //     setLoading(false)
+  //   }
 
-    fetchCats()
-  }, [])
+  //   fetchCats()
+  // }, [])
 
   // DEMO STEP 3: Add modal control functions
   const resetForm = () => {
