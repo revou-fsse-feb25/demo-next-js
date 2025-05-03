@@ -2,16 +2,7 @@
 
 import React, { useEffect, useState } from 'react'
 
-// DEMO STEP 1: Fetch cats from the API
-// DEMO STEP 2: Render cat cards to display the data
-// DEMO STEP 3: Add modal control functions
-// DEMO STEP 4: Implement form change handler
-// DEMO STEP 5: Implement function to add a new cat
-// DEMO STEP 6: Implement function to edit an existing cat
-// DEMO STEP 7: Implement function to delete a cat
-
 export default function Home() {
-  // Initialize state variables
   const [cats, setCats] = useState([])
   const [loading, setLoading] = useState(true)
   const [selectedCat, setSelectedCat] = useState(null)
@@ -28,10 +19,9 @@ export default function Home() {
   })
   const [isSubmitting, setIsSubmitting] = useState(false)
 
-  // DEMO STEP 1: Fetch cats from the API
+  // Fetch all cats
   useEffect(() => {
     const fetchCats = async () => {
-      
       try {
         const response = await fetch('https://64ca45bd700d50e3c7049e2f.mockapi.io/cat')
         if (!response.ok) {
@@ -44,72 +34,23 @@ export default function Home() {
       } finally {
         setLoading(false)
       }
-      
-      
-      setLoading(false)
     }
 
     fetchCats()
   }, [])
 
-  // DEMO STEP 3: Add modal control functions
-  const resetForm = () => {
-    /*
-    setFormData({
-      name: '',
-      breed: '',
-      age: '',
-      description: '',
-      imageUrl: '',
-      price: '',
-    })
-    */
-  }
-
-  const openAddModal = () => {
-    /*
-    resetForm()
-    setIsAddModalOpen(true)
-    */
-  }
-
-  const openEditModal = (cat) => {
-    /*
-    setSelectedCat(cat)
-    setFormData({
-      name: cat.name,
-      breed: cat.breed,
-      age: cat.age,
-      description: cat.description,
-      imageUrl: cat.imageUrl,
-      price: cat.price,
-    })
-    setIsEditModalOpen(true)
-    */
-  }
-
-  const openDeleteModal = (cat) => {
-    /*
-    setSelectedCat(cat)
-    setIsDeleteModalOpen(true)
-    */
-  }
-
-  // DEMO STEP 4: Implement form change handler
+  // Handle form input changes
   const handleChange = (e) => {
-    /*
     const { name, value } = e.target
     setFormData({
       ...formData,
       [name]: value,
     })
-    */
   }
 
-  // DEMO STEP 5: Implement function to add a new cat
+  // Add a new cat
   const handleAddCat = async (e) => {
     e.preventDefault()
-    /*
     setIsSubmitting(true)
 
     try {
@@ -144,13 +85,11 @@ export default function Home() {
     } finally {
       setIsSubmitting(false)
     }
-    */
   }
 
-  // DEMO STEP 6: Implement function to edit an existing cat
+  // Edit an existing cat
   const handleEditCat = async (e) => {
     e.preventDefault()
-    /*
     setIsSubmitting(true)
 
     try {
@@ -182,12 +121,10 @@ export default function Home() {
     } finally {
       setIsSubmitting(false)
     }
-    */
   }
 
-  // DEMO STEP 7: Implement function to delete a cat
+  // Delete a cat
   const handleDeleteCat = async () => {
-    /*
     setIsSubmitting(true)
     try {
       const response = await fetch(`https://64ca45bd700d50e3c7049e2f.mockapi.io/cat/${selectedCat.id}`, {
@@ -206,7 +143,44 @@ export default function Home() {
     } finally {
       setIsSubmitting(false)
     }
-    */
+  }
+
+  // Open edit modal and populate form
+  const openEditModal = (cat) => {
+    setSelectedCat(cat)
+    setFormData({
+      name: cat.name,
+      breed: cat.breed,
+      age: cat.age,
+      description: cat.description,
+      imageUrl: cat.imageUrl,
+      price: cat.price,
+    })
+    setIsEditModalOpen(true)
+  }
+
+  // Open delete modal
+  const openDeleteModal = (cat) => {
+    setSelectedCat(cat)
+    setIsDeleteModalOpen(true)
+  }
+
+  // Reset form data
+  const resetForm = () => {
+    setFormData({
+      name: '',
+      breed: '',
+      age: '',
+      description: '',
+      imageUrl: '',
+      price: '',
+    })
+  }
+
+  // Open add modal
+  const openAddModal = () => {
+    resetForm()
+    setIsAddModalOpen(true)
   }
 
   return (
@@ -228,9 +202,7 @@ export default function Home() {
           </div>
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {/* DEMO STEP 2: Render cat cards */}
-            
-            {/* {cats.map((cat) => (
+            {cats.map((cat) => (
               <div key={cat.id} className="border rounded-lg overflow-hidden hover:shadow-lg transition-shadow duration-300 dark:border-gray-700">
                 <img
                   src={cat.breed}
@@ -258,8 +230,7 @@ export default function Home() {
                   </div>
                 </div>
               </div>
-            ))} */}
-            
+            ))}
           </div>
         )}
       </div>

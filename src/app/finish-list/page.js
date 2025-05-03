@@ -2,22 +2,14 @@
 
 import React, { useEffect, useState } from 'react'
 
-// DEMO STEP 1: Fetch cats from the API
-// DEMO STEP 2: Render cat cards to display the data
-// DEMO STEP 3: Add modal control functions
-// DEMO STEP 4: Implement form change handler
-// DEMO STEP 5: Implement function to add a new cat
-// DEMO STEP 6: Implement function to edit an existing cat
-// DEMO STEP 7: Implement function to delete a cat
-
 export default function Home() {
-  // Initialize state variables
   const [cats, setCats] = useState([])
   const [loading, setLoading] = useState(true)
   const [selectedCat, setSelectedCat] = useState(null)
   const [isAddModalOpen, setIsAddModalOpen] = useState(false)
   const [isEditModalOpen, setIsEditModalOpen] = useState(false)
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false)
+  const [viewMode, setViewMode] = useState('card') // New state for view mode: 'card' or 'list'
   const [formData, setFormData] = useState({
     name: '',
     breed: '',
@@ -28,10 +20,9 @@ export default function Home() {
   })
   const [isSubmitting, setIsSubmitting] = useState(false)
 
-  // DEMO STEP 1: Fetch cats from the API
+  // Fetch all cats
   useEffect(() => {
     const fetchCats = async () => {
-      
       try {
         const response = await fetch('https://64ca45bd700d50e3c7049e2f.mockapi.io/cat')
         if (!response.ok) {
@@ -44,72 +35,28 @@ export default function Home() {
       } finally {
         setLoading(false)
       }
-      
-      
-      setLoading(false)
     }
 
     fetchCats()
   }, [])
 
-  // DEMO STEP 3: Add modal control functions
-  const resetForm = () => {
-    /*
-    setFormData({
-      name: '',
-      breed: '',
-      age: '',
-      description: '',
-      imageUrl: '',
-      price: '',
-    })
-    */
+  // Toggle between card and list view
+  const toggleViewMode = () => {
+    setViewMode(viewMode === 'card' ? 'list' : 'card')
   }
 
-  const openAddModal = () => {
-    /*
-    resetForm()
-    setIsAddModalOpen(true)
-    */
-  }
-
-  const openEditModal = (cat) => {
-    /*
-    setSelectedCat(cat)
-    setFormData({
-      name: cat.name,
-      breed: cat.breed,
-      age: cat.age,
-      description: cat.description,
-      imageUrl: cat.imageUrl,
-      price: cat.price,
-    })
-    setIsEditModalOpen(true)
-    */
-  }
-
-  const openDeleteModal = (cat) => {
-    /*
-    setSelectedCat(cat)
-    setIsDeleteModalOpen(true)
-    */
-  }
-
-  // DEMO STEP 4: Implement form change handler
+  // Handle form input changes
   const handleChange = (e) => {
-    /*
     const { name, value } = e.target
     setFormData({
       ...formData,
       [name]: value,
     })
-    */
   }
 
-  // DEMO STEP 5: Implement function to add a new cat
+  // Add a new cat
   const handleAddCat = async (e) => {
     e.preventDefault()
-    /*
     setIsSubmitting(true)
 
     try {
@@ -144,13 +91,11 @@ export default function Home() {
     } finally {
       setIsSubmitting(false)
     }
-    */
   }
 
-  // DEMO STEP 6: Implement function to edit an existing cat
+  // Edit an existing cat
   const handleEditCat = async (e) => {
     e.preventDefault()
-    /*
     setIsSubmitting(true)
 
     try {
@@ -182,12 +127,10 @@ export default function Home() {
     } finally {
       setIsSubmitting(false)
     }
-    */
   }
 
-  // DEMO STEP 7: Implement function to delete a cat
+  // Delete a cat
   const handleDeleteCat = async () => {
-    /*
     setIsSubmitting(true)
     try {
       const response = await fetch(`https://64ca45bd700d50e3c7049e2f.mockapi.io/cat/${selectedCat.id}`, {
@@ -206,7 +149,44 @@ export default function Home() {
     } finally {
       setIsSubmitting(false)
     }
-    */
+  }
+
+  // Open edit modal and populate form
+  const openEditModal = (cat) => {
+    setSelectedCat(cat)
+    setFormData({
+      name: cat.name,
+      breed: cat.breed,
+      age: cat.age,
+      description: cat.description,
+      imageUrl: cat.imageUrl,
+      price: cat.price,
+    })
+    setIsEditModalOpen(true)
+  }
+
+  // Open delete modal
+  const openDeleteModal = (cat) => {
+    setSelectedCat(cat)
+    setIsDeleteModalOpen(true)
+  }
+
+  // Reset form data
+  const resetForm = () => {
+    setFormData({
+      name: '',
+      breed: '',
+      age: '',
+      description: '',
+      imageUrl: '',
+      price: '',
+    })
+  }
+
+  // Open add modal
+  const openAddModal = () => {
+    resetForm()
+    setIsAddModalOpen(true)
   }
 
   return (
@@ -214,23 +194,30 @@ export default function Home() {
       <div className="max-w-7xl mx-auto">
         <div className="flex justify-between items-center mb-8">
           <h1 className="text-3xl font-bold">Cat Rental Service</h1>
-          <button
-            onClick={openAddModal}
-            className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-md"
-          >
-            Add New Cat
-          </button>
+          <div className="flex space-x-4">
+            <button
+              onClick={toggleViewMode}
+              className="bg-gray-500 hover:bg-gray-600 text-white px-4 py-2 rounded-md"
+            >
+              {viewMode === 'card' ? 'Switch to List View' : 'Switch to Card View'}
+            </button>
+            <button
+              onClick={openAddModal}
+              className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-md"
+            >
+              Add New Cat
+            </button>
+          </div>
         </div>
 
         {loading ? (
           <div className="flex justify-center">
             <p>Loading cats...</p>
           </div>
-        ) : (
+        ) : viewMode === 'card' ? (
+          // Card View
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {/* DEMO STEP 2: Render cat cards */}
-            
-            {/* {cats.map((cat) => (
+            {cats.map((cat) => (
               <div key={cat.id} className="border rounded-lg overflow-hidden hover:shadow-lg transition-shadow duration-300 dark:border-gray-700">
                 <img
                   src={cat.breed}
@@ -258,8 +245,52 @@ export default function Home() {
                   </div>
                 </div>
               </div>
-            ))} */}
-            
+            ))}
+          </div>
+        ) : (
+          // List View
+          <div className="overflow-x-auto">
+            <table className="min-w-full bg-white dark:bg-gray-800 rounded-lg overflow-hidden">
+              <thead className="bg-gray-100 dark:bg-gray-700">
+                <tr>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Image</th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Name</th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Breed</th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Age</th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Price/Day</th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Actions</th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-gray-200 dark:divide-gray-700">
+                {cats.map((cat) => (
+                  <tr key={cat.id} className="hover:bg-gray-50 dark:hover:bg-gray-700">
+                    <td className="px-6 py-4 whitespace-nowrap">
+                      <img src={cat.breed} alt={cat.name} className="h-12 w-12 rounded-full object-cover" />
+                    </td>
+                    <td className="px-6 py-4 whitespace-nowrap">{cat.name}</td>
+                    <td className="px-6 py-4 whitespace-nowrap">{cat.imageUrl}</td>
+                    <td className="px-6 py-4 whitespace-nowrap">{cat.age} years</td>
+                    <td className="px-6 py-4 whitespace-nowrap">${parseFloat(cat.price).toFixed(2)}</td>
+                    <td className="px-6 py-4 whitespace-nowrap">
+                      <div className="flex space-x-2">
+                        <button
+                          onClick={() => openEditModal(cat)}
+                          className="px-3 py-1 bg-yellow-500 text-white rounded-md hover:bg-yellow-600 text-xs"
+                        >
+                          Edit
+                        </button>
+                        <button
+                          onClick={() => openDeleteModal(cat)}
+                          className="px-3 py-1 bg-red-500 text-white rounded-md hover:bg-red-600 text-xs"
+                        >
+                          Delete
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
           </div>
         )}
       </div>
