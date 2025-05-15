@@ -1,65 +1,25 @@
-"use client";
+import BackButton from "@/components/BackButton";
+import FavoriteButton from "@/components/FavoriteButton";
 
-import React, { useEffect, useState } from "react";
-import { useParams } from "next/navigation";
-import LoadingSpinner from "@/components/LoadingSpinner";
-import { useRouter } from "next/navigation";
+async function getAnimeData(mal_id) {
+  const response = await fetch(`https://api.jikan.moe/v4/anime/${mal_id}/full`);
 
-const AnimeAllInfo = () => {
-  const params = useParams();
-  const mal_id = params.mal_id;
-  const [anime, setAnime] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
-  const router = useRouter();
+  if (!response.ok) throw new Error("Failed to fetch anime data");
+  const data = await response.json();
+  return data.data;
+}
 
-  useEffect(() => {
-    const fetchAnimeData = async () => {
-      try {
-        const response = await fetch(
-          `https://api.jikan.moe/v4/anime/${mal_id}/full`
-        );
-        if (!response.ok) throw new Error("Failed to fetch anime data");
-        const data = await response.json();
-        setAnime(data.data);
-      } catch (err) {
-        setError(err.message);
-      } finally {
-        setLoading(false);
-      }
-    };
+export default async function AnimeAllInfo({ params }) {
+  const { mal_id } = await params;
+  const anime = await getAnimeData(mal_id);
 
-    fetchAnimeData();
-  }, [mal_id]);
-
-  if (loading) return <LoadingSpinner />;
-  if (error) return <div className="text-red-500 text-center p-4">{error}</div>;
   if (!anime) return <div>No anime data found</div>;
 
   return (
-    <div className="container mx-auto px-4 py-8 ">
+    <div className="container mx-auto px-4 py-8">
       {/* Header Section */}
       <div className="mb-8 border-b-2 pb-2">
-        <button
-          onClick={() => router.push("/")}
-          className="flex items-center hover:text-blue-400 cursor-pointer text-gray-600  dark:text-gray-300 dark:hover:text-white transition-colors"
-        >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            className="h-6 w-6 mr-2"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              d="M10 19l-7-7m0 0l7-7m-7 7h18"
-            />
-          </svg>
-          Back to Home
-        </button>
+        <BackButton />
       </div>
 
       <div className="flex flex-col md:flex-row gap-8 mb-8">
@@ -93,6 +53,9 @@ const AnimeAllInfo = () => {
               <span className="font-semibold">Popularity:</span> #
               {anime.popularity}
             </p>
+            <div className="flex items-center">
+              <FavoriteButton />
+            </div>
             <div className="flex gap-2 flex-wrap">
               {anime.genres.map((genre) => (
                 <span
@@ -194,6 +157,4 @@ const AnimeAllInfo = () => {
       )}
     </div>
   );
-};
-
-export default AnimeAllInfo;
+}
