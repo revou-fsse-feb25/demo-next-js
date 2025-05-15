@@ -35,11 +35,9 @@ export default function AnimeCard({ anime }) {
             {anime.status}
           </span>
         </div>
-        <div className="h-24 overflow-y-auto scrollbar-thin scrollbar-thumb-gray-400 hover:scrollbar-thumb-gray-500 scrollbar-track-gray-200 dark:scrollbar-thumb-gray-700 dark:scrollbar-track-gray-600">
-          <p className="text-sm text-gray-700 dark:text-gray-300 pr-2">
-            {anime.synopsis || "No synopsis available."}
-          </p>
-        </div>
+        <p className="text-sm text-gray-700 dark:text-gray-300 line-clamp-3 flex-1">
+          {anime.synopsis || "No synopsis available."}
+        </p>
       </div>
     </div>
   );
